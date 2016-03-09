@@ -16,6 +16,7 @@ app.post('/json', function(req, res) {
             console.log(" [x] Sent Data");
         });
     });
+    res.status(200).send("OK");
 });
 
 app.get('/tennis-events', function(req, res) {
