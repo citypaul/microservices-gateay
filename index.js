@@ -21,7 +21,7 @@ app.post('/json', function(req, res) {
 
 app.get('/tennis-events', function(req, res) {
     var client = new Client();
-    client.get("http://localhost:3000/tennis-events", args, function (data, response) {
+    client.get("http://localhost:3000/tennis-events", function (data, response) {
         res.status(200).json(data);
     });
 });
