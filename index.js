@@ -30,7 +30,7 @@ app.get('/tennis-events', function(req, res) {
             });
         },
         function () {
-            //res.status(500).json({error: 'No views available!'});
+            res.status(500).send('No views available!');
         }
     );
 });

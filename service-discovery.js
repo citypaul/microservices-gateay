@@ -14,8 +14,9 @@ module.exports = function () {
                         port: data[0].ServicePort
                     }
                 );
+            } else {
+                error();
             }
-            error();
         });
     }
 
