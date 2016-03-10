@@ -21,13 +21,18 @@ app.post('/json', function(req, res) {
 });
 
 app.get('/tennis-events', function(req, res) {
-    serviceDiscovery.getAddress('receiver', function (response) {
-        var client = new Client();
-        client.get('http://' + response.address + ':' + response.port +'/tennis-events', function (data) {
-            res.status(200).json(data);
-        });
-    });
+    serviceDiscovery.getAddress(
+        'datastore', 
+        function (response) {
+            var client = new Client();
+            client.get('http://' + response.address + ':' + response.port +'/tennis-events', function (data) {
+                res.status(200).json(data);
+            });
+        },
+        function () {
+            //res.status(500).json({error: 'No views available!'});
+        }
+    );
 });
-
 
 module.exports = app;
