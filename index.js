@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var Client = require('node-rest-client').Client;
 var amqp = require('amqplib/callback_api');
+var serviceDiscovery = require('./service-discovery')();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -20,12 +21,13 @@ app.post('/json', function(req, res) {
 });
 
 app.get('/tennis-events', function(req, res) {
-    var client = new Client();
-    client.get("http://localhost:3000/tennis-events", function (data, response) {
-        res.status(200).json(data);
+    serviceDiscovery.getAddress('receiver', function (address) {
+        var client = new Client();
+        client.get('http://' + address + ':3000/tennis-events', function (data) {
+            res.status(200).json(data);
+        });
     });
 });
-
 
 
 module.exports = app;
