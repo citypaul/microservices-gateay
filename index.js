@@ -21,9 +21,9 @@ app.post('/json', function(req, res) {
 });
 
 app.get('/tennis-events', function(req, res) {
-    serviceDiscovery.getAddress('receiver', function (address) {
+    serviceDiscovery.getAddress('receiver', function (response) {
         var client = new Client();
-        client.get('http://' + address + ':3000/tennis-events', function (data) {
+        client.get('http://' + response.address + ':' + response.port +'/tennis-events', function (data) {
             res.status(200).json(data);
         });
     });
