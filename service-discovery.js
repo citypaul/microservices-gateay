@@ -3,10 +3,10 @@ var Client = require('node-rest-client').Client;
 module.exports = function () {
 
     function getAddress(serviceName, cb) {
-
         var client = new Client();
+        var consulIP = process.env.CONSULIP ? process.env.CONSULIP : 'localhost';
 
-        client.get('http://172.29.66.157:8500/v1/catalog/service/' + serviceName, function (data){
+        client.get('http://' + consulIP + ':8500/v1/catalog/service/' + serviceName, function (data){
             cb(data[0].ServiceAddress);
         });
     }
